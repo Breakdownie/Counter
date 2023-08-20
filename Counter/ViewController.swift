@@ -8,40 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var counterLabel: UILabel!
-    @IBOutlet weak var plusButton: UIButton!
-    @IBOutlet weak var minusButton: UIButton!
-    @IBOutlet weak var historyTextView: UITextView!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var plusButton: UIButton!
+    @IBOutlet private weak var minusButton: UIButton!
+    @IBOutlet private weak var historyTextView: UITextView!
+    
+    private var counter = 0
+    private var historyStory = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCounterLabel()
         updateHistoryTextView(header: "История изменений:")
-    }
-    
-    private var counter = 0
-    private var historyStory = ""
-    
-    @IBAction func counterPlus(_ sender: Any) {
-        counter += 1
-        updateCounterLabel()
-        updateHistoryTextView(change: "на +1")
-    }
-    
-    @IBAction func counterMinus(_ sender: Any) {
-        if counter > 0 {
-            counter -= 1
-            updateCounterLabel()
-            updateHistoryTextView(change: "на -1")
-        } else {
-            updateHistoryTextView(attempt: "попытка уменьшить значение счётчика ниже 0")
-        }
-    }
-    
-    @IBAction func counterClear(_ sender: Any) {
-        counter = 0
-        updateCounterLabel()
-        updateHistoryTextView(reset: "значение сброшено")
     }
     
     private func updateCounterLabel() {
@@ -75,4 +53,27 @@ class ViewController: UIViewController {
         
         historyTextView.text = "История изменений:\n\(historyStory)"
     }
+    
+    @IBAction func counterPlus(_ sender: Any) {
+        counter += 1
+        updateCounterLabel()
+        updateHistoryTextView(change: "на +1")
+    }
+    
+    @IBAction private func counterMinus(_ sender: Any) {
+        if counter > 0 {
+            counter -= 1
+            updateCounterLabel()
+            updateHistoryTextView(change: "на -1")
+        } else {
+            updateHistoryTextView(attempt: "попытка уменьшить значение счётчика ниже 0")
+        }
+    }
+    
+    @IBAction private func counterClear(_ sender: Any) {
+        counter = 0
+        updateCounterLabel()
+        updateHistoryTextView(reset: "значение сброшено")
+    }
+    
 }
